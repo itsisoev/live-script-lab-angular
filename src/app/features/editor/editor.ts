@@ -1,21 +1,28 @@
 import {
   ChangeDetectionStrategy,
-  Component, ElementRef, signal, viewChild,
+  Component, ElementRef, inject, signal, viewChild,
 } from '@angular/core';
 import {CodeEditor} from './components/code-editor/code-editor';
 import {MwResizer} from '../../shared/directives/mw-resizer';
+import { LucideAngularModule} from "lucide-angular";
+import {UiButton} from "../../shared/ui-components/ui-button/ui-button";
+import {Location} from "@angular/common";
 
 @Component({
   selector: 'features-editor',
   imports: [
     CodeEditor,
-    MwResizer
+    MwResizer,
+    LucideAngularModule,
+    UiButton
   ],
   templateUrl: './editor.html',
   styleUrl: './editor.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Editor {
+  private readonly location = inject(Location);
+
   previewIframe = viewChild<ElementRef<HTMLIFrameElement>>('previewIframe')
 
   htmlCode = signal(`<h1>Hello World</h1>`);
@@ -23,6 +30,10 @@ export class Editor {
   jsCode = signal(`console.log("Hello from JS")`);
 
   theme = signal<'light' | 'dark'>('dark');
+
+  goBack() {
+    this.location.back();
+  }
 
   updatePreview() {
     const iframeDoc = this.previewIframe()?.nativeElement.contentDocument!;

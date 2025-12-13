@@ -1,56 +1,59 @@
 <div class="playground">
-  <div class="playground__header">
-    <div class="playground__back">
-      <button>
+    <div class="playground__header">
+        <div class="playground__back">
+            <ui-button variant="primary" (onClick)="goBack()">
+                <lucide-icon [name]="'chevron-left'"></lucide-icon>
+                Назад
+            </ui-button>
+        </div>
 
-      </button>
+        <div class="playground__setting">
+            <ui-button variant="icon">
+                <lucide-icon [name]="'settings'"></lucide-icon>
+            </ui-button>
+        </div>
     </div>
 
-    <div class="playground__setting">
+    <div class="playground__editors">
+        <div class="playground__editor">
+            <div class="playground__title">HTML</div>
+            <features-code-editor
+                    [language]="'html'"
+                    [code]="htmlCode()"
+                    [theme]="theme()"
+                    (codeChange)="htmlCode.set($event); updatePreview()"
+            />
+        </div>
 
+        <div class="editor__resizer" mw-resizer></div>
+
+        <div class="playground__editor">
+            <div class="playground__title">CSS</div>
+            <features-code-editor
+                    [language]="'css'"
+                    [code]="cssCode()"
+                    [theme]="theme()"
+                    (codeChange)="cssCode.set($event); updatePreview()"
+            />
+        </div>
+
+        <div class="editor__resizer" mw-resizer></div>
+
+        <div class="playground__editor">
+            <div class="playground__title">JS</div>
+            <features-code-editor
+                    [language]="'javascript'"
+                    [code]="jsCode()"
+                    [theme]="theme()"
+                    (codeChange)="jsCode.set($event); updatePreview()"
+            />
+        </div>
     </div>
-  </div>
 
-  <div class="playground__editors">
-    <div class="playground__editor">
-      <div class="playground__title">HTML</div>
-      <features-code-editor
-        [language]="'html'"
-        [code]="htmlCode()"
-        [theme]="theme()"
-        (codeChange)="htmlCode.set($event); updatePreview()"
-      />
+    <div class="editor__resizer" mw-resizer [horizontal]="false"></div>
+
+    <div class="playground__preview">
+        <div class="playground__title">Preview</div>
+        <iframe #previewIframe class="playground__frame"></iframe>
     </div>
-
-    <div class="editor__resizer" mw-resizer></div>
-
-    <div class="playground__editor">
-      <div class="playground__title">CSS</div>
-      <features-code-editor
-        [language]="'css'"
-        [code]="cssCode()"
-        [theme]="theme()"
-        (codeChange)="cssCode.set($event); updatePreview()"
-      />
-    </div>
-
-    <div class="editor__resizer" mw-resizer></div>
-
-    <div class="playground__editor">
-      <div class="playground__title">JS</div>
-      <features-code-editor
-        [language]="'javascript'"
-        [code]="jsCode()"
-        [theme]="theme()"
-        (codeChange)="jsCode.set($event); updatePreview()"
-      />
-    </div>
-  </div>
-
-  <div class="editor__resizer" mw-resizer [horizontal]="false"></div>
-
-  <div class="playground__preview">
-    <div class="playground__title">Preview</div>
-    <iframe #previewIframe class="playground__frame"></iframe>
-  </div>
 </div>

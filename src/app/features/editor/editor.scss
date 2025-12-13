@@ -8,6 +8,25 @@
   padding: 1rem;
   box-sizing: border-box;
 
+  &__header {
+    display: flex;
+    align-items: center;
+    padding: 0.625rem 1.25rem;
+    justify-content: space-between;
+    background-color: var(--color-surface-2);
+    border-radius: 0.5rem;
+
+    .button-back {
+      display: flex;
+      align-items: center;
+      padding: 0 0.625rem;
+      cursor: pointer;
+      background-color: transparent;
+      border: none;
+      color: var(--color-text-secondary);
+    }
+  }
+
   &__editors {
     display: flex;
     align-items: stretch;
