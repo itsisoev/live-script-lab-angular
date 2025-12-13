@@ -3,9 +3,9 @@ import {
   Component, ElementRef, inject, signal, viewChild,
 } from '@angular/core';
 import {CodeEditor} from './components/code-editor/code-editor';
-import {MwResizer} from '../../shared/directives/mw-resizer';
-import { LucideAngularModule} from "lucide-angular";
-import {UiButton} from "../../shared/ui-components/ui-button/ui-button";
+import {MwResizer} from '@shared/directives/mw-resizer';
+import {LucideAngularModule} from "lucide-angular";
+import {UiButton} from "@shared/ui-components/ui-button/ui-button";
 import {Location} from "@angular/common";
 import {SettingEditor} from "./components/setting-editor/setting-editor";
 
