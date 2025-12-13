@@ -30,6 +30,8 @@ export class CodeEditor implements AfterViewInit, OnChanges, OnDestroy {
   language = input<'html' | 'css' | 'javascript'>('html');
   code = input<string>('');
   theme = input<'light' | 'dark'>('light');
+  fontSize = input<number>(14);
+  fontFamily = input<string>('JetBrains Mono, monospace');
 
   private destroy$ = new Subject<void>();
   private codeChangeSubject = new Subject<string>();
@@ -52,7 +54,8 @@ export class CodeEditor implements AfterViewInit, OnChanges, OnDestroy {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if ((changes['language'] || changes['theme']) && this.editor()) {
+    if ((changes['language'] || changes['theme'] || changes['fontSize'] || changes['fontFamily'])
+        && this.editor()) {
       queueMicrotask(() => this.updateEditor());
     }
 
@@ -153,13 +156,13 @@ export class CodeEditor implements AfterViewInit, OnChanges, OnDestroy {
       EditorView.theme({
         '&': {
           height: '100%',
-          fontSize: '0.875rem',
+          fontSize: `${this.fontSize()}px`,
         },
         '.cm-scroller': {
           overflow: 'auto',
           height: '100%',
           minHeight: '6.25rem',
-          fontFamily: "'SF Mono', Monaco, 'Courier New', monospace",
+          fontFamily: this.fontFamily(),
           lineHeight: '1.6'
         },
         '.cm-gutters': {

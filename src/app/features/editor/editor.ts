@@ -7,6 +7,7 @@ import {MwResizer} from '../../shared/directives/mw-resizer';
 import { LucideAngularModule} from "lucide-angular";
 import {UiButton} from "../../shared/ui-components/ui-button/ui-button";
 import {Location} from "@angular/common";
+import {SettingEditor} from "./components/setting-editor/setting-editor";
 
 @Component({
   selector: 'features-editor',
@@ -14,7 +15,8 @@ import {Location} from "@angular/common";
     CodeEditor,
     MwResizer,
     LucideAngularModule,
-    UiButton
+    UiButton,
+    SettingEditor
   ],
   templateUrl: './editor.html',
   styleUrl: './editor.scss',
@@ -30,9 +32,17 @@ export class Editor {
   jsCode = signal(`console.log("Hello from JS")`);
 
   theme = signal<'light' | 'dark'>('dark');
+  fontSize = signal<number>(14);
+  fontFamily = signal<string>('JetBrains Mono, monospace');
+
+  isOpenSetting = signal(false);
 
   goBack() {
     this.location.back();
+  }
+
+  openSettingEditor() {
+    this.isOpenSetting.set(true);
   }
 
   updatePreview() {

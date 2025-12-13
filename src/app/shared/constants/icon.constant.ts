@@ -1,11 +1,13 @@
 import {
-  ChevronLeft,
-  Settings
+    ChevronLeft,
+    Settings,
+    CircleX
 } from 'lucide-angular';
 
 export const ICONS = {
-  ChevronLeft,
-  Settings
+    ChevronLeft,
+    Settings,
+    CircleX
 } as const;
 
 export type IconName = keyof typeof ICONS;
