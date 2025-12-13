@@ -1,5 +1,5 @@
-import {ChangeDetectionStrategy, Component, model, signal} from '@angular/core';
-import {UiButton} from '../../../../shared/ui-components/ui-button/ui-button';
+import {ChangeDetectionStrategy, Component, model} from '@angular/core';
+import {UiButton} from '@shared/ui-components/ui-button/ui-button';
 import {LucideAngularModule} from 'lucide-angular';
 
 @Component({

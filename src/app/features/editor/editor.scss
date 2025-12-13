@@ -87,9 +87,9 @@
   flex: 0 0 0.5rem;
   align-self: stretch;
   background: linear-gradient(
-                  180deg,
-                  var(--color-resizer-start),
-                  var(--color-resizer-end)
+      180deg,
+      var(--color-resizer-start),
+      var(--color-resizer-end)
   );
   border-radius: 0.375rem;
   cursor: col-resize;
@@ -106,17 +106,17 @@
 
   &:hover {
     background: linear-gradient(
-                    180deg,
-                    var(--color-resizer-hover-start),
-                    var(--color-resizer-hover-end)
+        180deg,
+        var(--color-resizer-hover-start),
+        var(--color-resizer-hover-end)
     );
   }
 
   &:active {
     background: linear-gradient(
-                    180deg,
-                    var(--color-resizer-active-start),
-                    var(--color-resizer-active-end)
+        180deg,
+        var(--color-resizer-active-start),
+        var(--color-resizer-active-end)
     );
   }
 }

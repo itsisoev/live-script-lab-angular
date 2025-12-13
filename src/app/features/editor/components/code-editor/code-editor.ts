@@ -55,7 +55,7 @@ export class CodeEditor implements AfterViewInit, OnChanges, OnDestroy {
 
   ngOnChanges(changes: SimpleChanges) {
     if ((changes['language'] || changes['theme'] || changes['fontSize'] || changes['fontFamily'])
-        && this.editor()) {
+      && this.editor()) {
       queueMicrotask(() => this.updateEditor());
     }
 
@@ -182,5 +182,4 @@ export class CodeEditor implements AfterViewInit, OnChanges, OnDestroy {
       }),
     ];
   }
-
 }
