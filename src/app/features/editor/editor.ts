@@ -1,7 +1,6 @@
 import {
   ChangeDetectionStrategy,
-  Component, ElementRef, signal,
-  ViewChild,
+  Component, ElementRef, signal, viewChild,
 } from '@angular/core';
 import {CodeEditor} from './components/code-editor/code-editor';
 import {MwResizer} from '../../shared/directives/mw-resizer';
@@ -17,7 +16,7 @@ import {MwResizer} from '../../shared/directives/mw-resizer';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Editor {
-  @ViewChild('previewIframe') previewIframe!: ElementRef<HTMLIFrameElement>;
+  previewIframe = viewChild<ElementRef<HTMLIFrameElement>>('previewIframe')
 
   htmlCode = signal(`<h1>Hello World</h1>`);
   cssCode = signal(`h1 { color: red; }`);
@@ -26,7 +25,7 @@ export class Editor {
   theme = signal<'light' | 'dark'>('dark');
 
   updatePreview() {
-    const iframeDoc = this.previewIframe.nativeElement.contentDocument!;
+    const iframeDoc = this.previewIframe()?.nativeElement.contentDocument!;
     const html = this.htmlCode();
     const css = `<style>${this.cssCode()}</style>`;
     const js = `<script>${this.jsCode()}<\/script>`;
