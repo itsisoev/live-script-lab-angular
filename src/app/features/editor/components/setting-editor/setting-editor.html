@@ -1,0 +1,28 @@
+<div class="setting-editor-overlay" (click)="close()"></div>
+
+<div class="setting-editor">
+  <ui-button class="setting-editor__close" (onClick)="close()" [variant]="'icon'">
+    <lucide-icon [name]="'circle-x'"></lucide-icon>
+  </ui-button>
+
+  <label>
+    Theme:
+    <select [value]="theme()" (change)="onThemeChange($event)">
+      <option value="light">Light</option>
+      <option value="dark">Dark</option>
+    </select>
+  </label>
+
+  <label>
+    Font size:
+    <input type="number" min="5" [value]="fontSize()" (input)="onFontSizeChange($event)">
+  </label>
+
+  <label>
+    Font family:
+    <select [value]="fontFamily()" (change)="onFontFamilyChange($event)">
+      <option value="JetBrains Mono, monospace">JetBrains Mono</option>
+      <option value="SF Mono, monospace">SF Mono</option>
+    </select>
+  </label>
+</div>

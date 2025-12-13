@@ -1,14 +1,14 @@
 <div class="playground">
     <div class="playground__header">
         <div class="playground__back">
-            <ui-button variant="primary" (onClick)="goBack()">
+            <ui-button [variant]="'primary'" (onClick)="goBack()">
                 <lucide-icon [name]="'chevron-left'"></lucide-icon>
                 Назад
             </ui-button>
         </div>
 
         <div class="playground__setting">
-            <ui-button variant="icon">
+            <ui-button [variant]="'icon'" (onClick)="openSettingEditor()">
                 <lucide-icon [name]="'settings'"></lucide-icon>
             </ui-button>
         </div>
@@ -21,6 +21,8 @@
                     [language]="'html'"
                     [code]="htmlCode()"
                     [theme]="theme()"
+                    [fontSize]="fontSize()"
+                    [fontFamily]="fontFamily()"
                     (codeChange)="htmlCode.set($event); updatePreview()"
             />
         </div>
@@ -33,6 +35,8 @@
                     [language]="'css'"
                     [code]="cssCode()"
                     [theme]="theme()"
+                    [fontSize]="fontSize()"
+                    [fontFamily]="fontFamily()"
                     (codeChange)="cssCode.set($event); updatePreview()"
             />
         </div>
@@ -45,6 +49,8 @@
                     [language]="'javascript'"
                     [code]="jsCode()"
                     [theme]="theme()"
+                    [fontSize]="fontSize()"
+                    [fontFamily]="fontFamily()"
                     (codeChange)="jsCode.set($event); updatePreview()"
             />
         </div>
@@ -57,3 +63,13 @@
         <iframe #previewIframe class="playground__frame"></iframe>
     </div>
 </div>
+
+@if (isOpenSetting()) {
+    <features-setting-editor
+            [(theme)]="theme"
+            [(fontSize)]="fontSize"
+            [(fontFamily)]="fontFamily"
+            [(isOpen)]="isOpenSetting"
+    />
+}
+
