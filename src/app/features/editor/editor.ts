@@ -37,6 +37,14 @@ export class Editor {
 
   isOpenSetting = signal(false);
 
+  isHorizontal = signal<boolean>(true);
+
+  constructor() {
+    if (window.innerWidth <= 768) {
+      this.isHorizontal.set(false);
+    }
+  }
+
   goBack() {
     this.location.back();
   }
