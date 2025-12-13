@@ -4,16 +4,16 @@ import {
   Component,
   ElementRef,
   input,
-  OnChanges, output,
-  signal, SimpleChanges,
-  ViewChild
+  OnChanges, OnDestroy, output,
+  signal, SimpleChanges, viewChild,
 } from '@angular/core';
 import {basicSetup, EditorView} from 'codemirror';
 import {html} from '@codemirror/lang-html';
 import {css} from '@codemirror/lang-css';
 import {javascript} from '@codemirror/lang-javascript';
-import {EditorState} from '@codemirror/state';
+import {EditorSelection, EditorState, StateEffect} from '@codemirror/state';
 import {githubDark, githubLight} from '@uiw/codemirror-theme-github';
+import {debounceTime, distinctUntilChanged, Subject, takeUntil} from 'rxjs';
 
 @Component({
   selector: 'features-code-editor',
@@ -22,8 +22,8 @@ import {githubDark, githubLight} from '@uiw/codemirror-theme-github';
   styleUrl: './code-editor.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CodeEditor implements AfterViewInit, OnChanges {
-  @ViewChild('editorRef') editorRef!: ElementRef;
+export class CodeEditor implements AfterViewInit, OnChanges, OnDestroy {
+  editorRef = viewChild<ElementRef>('editorRef');
 
   codeChange = output<string>();
 
@@ -31,7 +31,21 @@ export class CodeEditor implements AfterViewInit, OnChanges {
   code = input<string>('');
   theme = input<'light' | 'dark'>('light');
 
+  private destroy$ = new Subject<void>();
+  private codeChangeSubject = new Subject<string>();
+
   private editor = signal<EditorView | null>(null);
+
+  constructor() {
+    this.codeChangeSubject
+      .pipe(
+        debounceTime(300),
+        distinctUntilChanged(),
+        takeUntil(this.destroy$)
+      ).subscribe(code => {
+      this.codeChange.emit(code);
+    });
+  }
 
   ngAfterViewInit() {
     this.createEditor();
@@ -39,15 +53,25 @@ export class CodeEditor implements AfterViewInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if ((changes['language'] || changes['theme']) && this.editor()) {
-      setTimeout(() => this.updateEditor(), 0);
+      queueMicrotask(() => this.updateEditor());
     }
 
-    if (changes['code'] && this.editor && !this.editor()?.hasFocus) {
+    if (changes['code'] && this.editor() && !this.editor()?.hasFocus) {
       this.updateCode();
     }
   }
 
+  ngOnDestroy() {
+    this.editor()?.destroy();
+    this.editor.set(null);
+
+    this.destroy$.next();
+    this.codeChangeSubject.complete();
+  }
+
   private createEditor() {
+    if (!this.editorRef()?.nativeElement) return;
+
     const state = EditorState.create({
       doc: this.code(),
       extensions: this.getExtensions()
@@ -55,40 +79,45 @@ export class CodeEditor implements AfterViewInit, OnChanges {
 
     this.editor.set(new EditorView({
       state,
-      parent: this.editorRef.nativeElement
+      parent: this.editorRef()?.nativeElement
     }));
   }
 
   private updateEditor() {
-    if (!this.editor) return;
+    if (!this.editor()) return;
 
-    const newState = EditorState.create({
-      doc: this.code(),
-      extensions: this.getExtensions()
+    this.editor()?.dispatch({
+      effects: StateEffect.reconfigure.of(this.getExtensions())
     });
-
-    this.editor()?.setState(newState);
   }
 
-
   private updateCode() {
-    if (!this.editor) return;
+    const editor = this.editor();
+    if (!editor) return;
 
-    const currentCode = this.editor()?.state.doc.toString();
-    if (currentCode !== this.code()) {
-      const transaction = this.editor()?.state.update({
-        changes: {
-          from: 0,
-          to: currentCode?.length,
-          insert: this.code()
-        }
-      });
+    const currentCode = editor.state.doc.toString();
+    const newCode = this.code();
 
-      if (transaction) {
-        this.editor()?.dispatch(transaction);
-      }
+    if (currentCode === newCode) return;
 
-    }
+    const currentSelection = editor.state.selection;
+
+    const newSelection = EditorSelection.create(
+      currentSelection.ranges.map(range =>
+        EditorSelection.range(
+          Math.min(range.anchor, newCode.length),
+          Math.min(range.head, newCode.length)
+        )
+      ),
+      currentSelection.mainIndex
+    );
+
+    const transaction = editor.state.update({
+      changes: {from: 0, to: currentCode.length, insert: newCode},
+      selection: newSelection
+    });
+
+    editor.dispatch(transaction);
   }
 
   private getExtensions() {
@@ -111,7 +140,7 @@ export class CodeEditor implements AfterViewInit, OnChanges {
 
     const updateListener = EditorView.updateListener.of((v) => {
       if (v.docChanged) {
-        this.codeChange.emit(v.state.doc.toString());
+        this.codeChangeSubject.next(v.state.doc.toString());
       }
     });
 
@@ -148,7 +177,6 @@ export class CodeEditor implements AfterViewInit, OnChanges {
           backgroundColor: this.theme() === 'dark' ? 'rgba(110, 118, 129, 0.1)' : 'rgba(175, 184, 193, 0.2)'
         }
       }),
-
     ];
   }
 
