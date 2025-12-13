@@ -9,17 +9,20 @@ export class MwResizer {
   horizontal = input<boolean>(true);
 
   dragging = signal<boolean>(false);
-  prevX = signal<number>(0);
   minSize = signal<number>(100);
   prevPos = signal<number>(0);
 
   prevPanel!: HTMLElement;
   nextPanel!: HTMLElement;
 
+
   @HostListener('mousedown', ['$event'])
-  onMouseDown(event: MouseEvent) {
+  @HostListener('touchstart', ['$event'])
+  onStart(event: MouseEvent | TouchEvent) {
     this.dragging.set(true);
-    this.prevPos.set(this.horizontal() ? event.clientX : event.clientY);
+
+    const client = 'touches' in event ? event.touches[0] : event;
+    this.prevPos.set(this.horizontal() ? client.clientX : client.clientY);
 
     this.prevPanel = this.el.nativeElement.previousElementSibling;
     this.nextPanel = this.el.nativeElement.nextElementSibling;
@@ -37,10 +40,12 @@ export class MwResizer {
   }
 
   @HostListener('document:mousemove', ['$event'])
-  onMouseMove(event: MouseEvent) {
+  @HostListener('document:touchmove', ['$event'])
+  onMove(event: MouseEvent | TouchEvent) {
     if (!this.dragging()) return;
 
-    const delta = this.horizontal() ? event.clientX - this.prevPos() : event.clientY - this.prevPos();
+    const client = 'touches' in event ? event.touches[0] : event;
+    const delta = this.horizontal() ? client.clientX - this.prevPos() : client.clientY - this.prevPos();
 
     if (this.horizontal()) {
       const prevWidth = this.prevPanel.offsetWidth + delta;
@@ -49,7 +54,7 @@ export class MwResizer {
       if (prevWidth > this.minSize() && nextWidth > this.minSize()) {
         this.prevPanel.style.flex = `0 0 ${prevWidth}px`;
         this.nextPanel.style.flex = `0 0 ${nextWidth}px`;
-        this.prevPos.set(event.clientX);
+        this.prevPos.set(client.clientX);
       }
     } else {
       const prevHeight = this.prevPanel.offsetHeight + delta;
@@ -57,14 +62,14 @@ export class MwResizer {
 
       if (prevHeight > this.minSize() && nextHeight > this.minSize()) {
         this.prevPanel.style.flex = `0 0 ${prevHeight}px`;
-        this.prevPos.set(event.clientY);
+        this.prevPos.set(client.clientY);
       }
     }
   }
 
-
   @HostListener('document:mouseup')
-  onMouseUp() {
+  @HostListener('document:touchend')
+  onEnd() {
     this.dragging.set(false);
     document.body.style.userSelect = '';
     document.body.style.cursor = '';
