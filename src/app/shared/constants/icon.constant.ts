@@ -3,7 +3,8 @@ import {
   Settings,
   CircleX,
   Play,
-  Palette
+  Palette,
+  Save
 } from 'lucide-angular';
 
 export const ICONS = {
@@ -11,7 +12,8 @@ export const ICONS = {
   Settings,
   CircleX,
   Play,
-  Palette
+  Palette,
+  Save
 } as const;
 
 export type IconName = keyof typeof ICONS;
