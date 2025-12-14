@@ -4,6 +4,9 @@ export const routes: Routes = [
   {
     path: 'editor',
     loadComponent: () =>
-      import('./features/editor/editor').then(m => m.Editor)
+      import('./features/editor/editor').then(m => m.Editor),
+    data: {
+      showHeader: false
+    }
   }
 ];

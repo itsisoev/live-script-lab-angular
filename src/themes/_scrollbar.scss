@@ -1,23 +1,4 @@
-/* You can add global styles to this file, and also import other style files */
-@use "themes/index";
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-
-body {
-  background-color: var(--color-bg-root);
-  font-family: var(--font-mono);
-  color: var(--color-text-primary);
-}
-
-a {
-  text-decoration: none;
-}
-
+/* ===== Scrollbar (WebKit) ===== */
 *::-webkit-scrollbar {
   width: 10px;
   height: 10px;
@@ -48,7 +29,5 @@ a {
 /* ===== Firefox ===== */
 * {
   scrollbar-width: thin;
-  scrollbar-color:
-    var(--color-border-hover)
-    var(--color-surface-2);
+  scrollbar-color: var(--color-border-hover) var(--color-surface-2);
 }
