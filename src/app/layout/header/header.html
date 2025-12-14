@@ -1,1 +1,17 @@
-<p>header works!</p>
+<header class="header">
+  <div class="header__logo">
+    <a routerLink="/">
+      <h2>Code Lab</h2>
+    </a>
+  </div>
+
+  <div class="header__main">
+    <ui-button
+      [variant]="'icon'"
+      (onClick)="toggleTheme()"
+      aria-label="Toggle theme"
+    >
+      <lucide-icon name="palette"/>
+    </ui-button>
+  </div>
+</header>

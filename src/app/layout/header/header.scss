@@ -1,0 +1,16 @@
+.header {
+  display: flex;
+  padding: 1.5625rem 1.875rem;
+  justify-content: space-between;
+  box-shadow: var(--shadow-sm);
+
+  &__logo {
+    a {
+      color: var(--color-text-primary);
+    }
+  }
+
+  &__main {
+
+  }
+}
