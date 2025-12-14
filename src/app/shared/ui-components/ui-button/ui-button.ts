@@ -7,7 +7,7 @@ import {NgClass} from '@angular/common';
     NgClass
   ],
   template: `
-    <button [ngClass]="classes" (click)="onClick.emit($event)">
+    <button [ngClass]="classes" (click)="onClick.emit($event)" [disabled]="disabled()">
       <ng-content></ng-content>
     </button>
   `,
@@ -17,6 +17,7 @@ import {NgClass} from '@angular/common';
 export class UiButton {
   size = input<'sm' | 'md' | 'lg'>('md');
   variant = input<'primary' | 'secondary' | 'icon'>('primary');
+  disabled = input<boolean>(false);
 
   onClick = output<Event>();
 
