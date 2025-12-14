@@ -27,6 +27,12 @@
     }
   }
 
+  &__setting {
+    gap: 1.25rem;
+    display: flex;
+    align-items: center;
+  }
+
   &__editors {
     display: flex;
     align-items: stretch;
