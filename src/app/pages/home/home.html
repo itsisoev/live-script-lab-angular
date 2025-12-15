@@ -1,0 +1,65 @@
+<div class="home">
+  <section class="home__hero">
+    <p class="home__subtitle">
+      Онлайн-песочница для HTML, CSS и JavaScript.
+      Пиши код, сохраняй проекты и делись ими с миром.
+    </p>
+
+    <div class="home__actions">
+      <ui-button size="lg" (onClick)="openEditor()">
+        Открыть редактор
+      </ui-button>
+
+      <ui-button size="lg" variant="secondary" [disabled]="true">
+        Посмотреть проекты
+      </ui-button>
+    </div>
+  </section>
+
+  <section class="home__features">
+    <div class="home__feature">
+      <h3 class="home__feature-title">
+        <lucide-icon name="pencil-line" size="20"></lucide-icon>
+        Пиши код
+      </h3>
+      <p class="home__feature-text">
+        Работай с HTML, CSS и JavaScript прямо в браузере —
+        без установки и лишних настроек.
+      </p>
+    </div>
+
+    <div class="home__feature">
+      <h3 class="home__feature-title">
+        <lucide-icon name="save" size="20"></lucide-icon>
+        Сохраняй проекты
+      </h3>
+      <p class="home__feature-text">
+        Сохраняй свои работы и возвращайся к ним в любое время.
+      </p>
+    </div>
+
+    <div class="home__feature">
+      <h3 class="home__feature-title">
+        <lucide-icon name="earth" size="20"></lucide-icon>
+        Делись с другими
+      </h3>
+      <p class="home__feature-text">
+        Публикуй проекты в общий доступ и вдохновляй других разработчиков.
+      </p>
+    </div>
+  </section>
+
+  <section class="home__license">
+    <h2 class="home__license-title">MIT License</h2>
+
+    <p class="home__license-text">
+      Все проекты, опубликованные на CodeLab, распространяются по лицензии MIT.
+      Это значит, что любой человек может свободно использовать, копировать,
+      изменять и распространять код — бесплатно и без ограничений.
+    </p>
+
+    <p class="home__license-note">
+      Ты сохраняешь авторство, а сообщество получает свободу
+    </p>
+  </section>
+</div>
