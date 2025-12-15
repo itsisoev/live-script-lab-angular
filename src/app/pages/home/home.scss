@@ -4,7 +4,7 @@
   color: var(--color-text-primary);
 
   &__hero {
-    max-width: 720px;
+    max-width: 45rem;
     margin: 0 auto 4rem;
     text-align: center;
   }
@@ -24,17 +24,17 @@
   }
 
   &__features {
-    max-width: 960px;
+    max-width: 60rem;
     margin: 0 auto 4rem;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
     gap: 1.5rem;
   }
 
   &__feature {
     background-color: var(--color-surface-1);
-    border: 1px solid var(--color-border-default);
-    border-radius: 12px;
+    border: 0.0625rem solid var(--color-border-default);
+    border-radius: 0.75rem;
     padding: 1.5rem;
     box-shadow: var(--shadow-sm);
   }
@@ -51,11 +51,11 @@
   }
 
   &__license {
-    max-width: 720px;
+    max-width: 59.6875rem;
     margin: 0 auto;
     background-color: var(--color-surface-2);
-    border: 1px dashed var(--color-resizer-active-end);
-    border-radius: 12px;
+    border: 0.0625rem dashed var(--color-resizer-active-end);
+    border-radius: 0.75rem;
     padding: 2rem;
   }
 
