@@ -1,6 +1,6 @@
 import {
   ChangeDetectionStrategy,
-  Component, ElementRef, inject, signal, viewChild,
+  Component, effect, ElementRef, inject, signal, viewChild,
 } from '@angular/core';
 import {CodeEditor} from './components/code-editor/code-editor';
 import {MwResizer} from '@shared/directives/mw-resizer';
@@ -8,6 +8,12 @@ import {LucideAngularModule} from "lucide-angular";
 import {UiButton} from "@shared/ui-components/ui-button/ui-button";
 import {Location} from "@angular/common";
 import {SettingEditor} from "./components/setting-editor/setting-editor";
+
+const LOCAL_STORAGE_KEYS = {
+  html: 'codelab-html-code',
+  css: 'codelab-css-code',
+  js: 'codelab-js-code'
+};
 
 @Component({
   selector: 'features-editor',
@@ -43,6 +49,27 @@ export class Editor {
     if (window.innerWidth <= 768) {
       this.isHorizontal.set(false);
     }
+
+    this.htmlCode.set(localStorage.getItem(LOCAL_STORAGE_KEYS.html) || `<h1>Hello World</h1>`);
+    this.cssCode.set(localStorage.getItem(LOCAL_STORAGE_KEYS.css) || `h1 { color: red; }`);
+    this.jsCode.set(localStorage.getItem(LOCAL_STORAGE_KEYS.js) || `console.log("Hello from JS")`);
+
+    queueMicrotask(() => this.updatePreview());
+
+    effect(() => {
+      localStorage.setItem(LOCAL_STORAGE_KEYS.html, this.htmlCode());
+      this.updatePreview();
+    });
+
+    effect(() => {
+      localStorage.setItem(LOCAL_STORAGE_KEYS.css, this.cssCode());
+      this.updatePreview();
+    });
+
+    effect(() => {
+      localStorage.setItem(LOCAL_STORAGE_KEYS.js, this.jsCode());
+      this.updatePreview();
+    });
   }
 
   goBack() {
