@@ -1,0 +1,78 @@
+.home {
+  padding: 4rem 1.5rem;
+  background-color: var(--color-bg-root);
+  color: var(--color-text-primary);
+
+  &__hero {
+    max-width: 720px;
+    margin: 0 auto 4rem;
+    text-align: center;
+  }
+
+  &__subtitle {
+    font-size: 1.125rem;
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+
+  &__actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  &__features {
+    max-width: 960px;
+    margin: 0 auto 4rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+  }
+
+  &__feature {
+    background-color: var(--color-surface-1);
+    border: 1px solid var(--color-border-default);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  &__feature-title {
+    margin-bottom: 0.5rem;
+    font-size: 1.125rem;
+  }
+
+  &__feature-text {
+    color: var(--color-text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  &__license {
+    max-width: 720px;
+    margin: 0 auto;
+    background-color: var(--color-surface-2);
+    border: 1px dashed var(--color-resizer-active-end);
+    border-radius: 12px;
+    padding: 2rem;
+  }
+
+  &__license-title {
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+  }
+
+  &__license-text {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+    margin-bottom: 0.75rem;
+  }
+
+  &__license-note {
+    font-size: 0.9rem;
+    opacity: 0.8;
+  }
+}

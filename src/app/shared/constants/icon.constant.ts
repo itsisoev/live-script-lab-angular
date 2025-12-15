@@ -4,7 +4,10 @@ import {
   CircleX,
   Play,
   Palette,
-  Save
+  Save,
+  PencilLine,
+  Earth,
+  Rocket
 } from 'lucide-angular';
 
 export const ICONS = {
@@ -13,7 +16,10 @@ export const ICONS = {
   CircleX,
   Play,
   Palette,
-  Save
+  Save,
+  PencilLine,
+  Earth,
+  Rocket
 } as const;
 
 export type IconName = keyof typeof ICONS;
