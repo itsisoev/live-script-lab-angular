@@ -7,7 +7,8 @@ import {
   Save,
   PencilLine,
   Earth,
-  Rocket
+  Rocket,
+  Copy
 } from 'lucide-angular';
 
 export const ICONS = {
@@ -19,7 +20,8 @@ export const ICONS = {
   Save,
   PencilLine,
   Earth,
-  Rocket
+  Rocket,
+  Copy
 } as const;
 
 export type IconName = keyof typeof ICONS;

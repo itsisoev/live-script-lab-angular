@@ -21,7 +21,13 @@
 
   <div class="playground__editors">
     <div class="playground__editor">
-      <div class="playground__title">HTML</div>
+      <div class="playground__title">
+        HTML
+
+        <ui-button [variant]="'icon'" (onClick)="copyHtml()">
+          <lucide-icon [name]="'copy'"></lucide-icon>
+        </ui-button>
+      </div>
       <features-code-editor
         [language]="'html'"
         [code]="htmlCode()"
@@ -35,7 +41,13 @@
     <div class="editor__resizer" mw-resizer [horizontal]="isHorizontal()"></div>
 
     <div class="playground__editor">
-      <div class="playground__title">CSS</div>
+      <div class="playground__title">
+        CSS
+
+        <ui-button [variant]="'icon'" (onClick)="copyCss()">
+          <lucide-icon [name]="'copy'"></lucide-icon>
+        </ui-button>
+      </div>
       <features-code-editor
         [language]="'css'"
         [code]="cssCode()"
@@ -49,7 +61,13 @@
     <div class="editor__resizer" mw-resizer [horizontal]="isHorizontal()"></div>
 
     <div class="playground__editor">
-      <div class="playground__title">JS</div>
+      <div class="playground__title">
+        JS
+
+        <ui-button [variant]="'icon'" (onClick)="copyJs()">
+          <lucide-icon [name]="'copy'"></lucide-icon>
+        </ui-button>
+      </div>
       <features-code-editor
         [language]="'javascript'"
         [code]="jsCode()"
