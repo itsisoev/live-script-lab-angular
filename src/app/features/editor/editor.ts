@@ -90,4 +90,34 @@ export class Editor {
     iframeDoc.write(html + css + js);
     iframeDoc.close();
   }
+
+  copyHtml() {
+    navigator.clipboard.writeText(this.htmlCode())
+      .then(() => {
+        console.log('HTML скопирован!');
+      })
+      .catch(err => {
+        console.error('Ошибка копирования:', err);
+      });
+  }
+
+  copyCss() {
+    navigator.clipboard.writeText(this.cssCode())
+      .then(() => {
+        console.log('CSS скопирован!');
+      })
+      .catch(err => {
+        console.error('Ошибка копирования:', err);
+      });
+  }
+
+  copyJs() {
+    navigator.clipboard.writeText(this.jsCode())
+      .then(() => {
+        console.log('JS скопирован!');
+      })
+      .catch(err => {
+        console.error('Ошибка копирования:', err);
+      });
+  }
 }
